@@ -1,0 +1,120 @@
+RAW RAG OUTPUTS WITHOUT ANY ENHANCEMENTS (OLLAMA)
+Ollama (Granite4:350m): (WITH mixedbread-ai/mxbai-embed-large-v1)
+Question: What can you tell me about Angeloktistisi church?
+Answer: The Panagia tis Angeloktistis is a Byzantine church located in Kiti, Cyprus. It was built between the mid-11th and early 12th centuries after Byzantine rule re-established in Cyprus in 965. The Church of Panagia Aggeloktisti was submitted as a possible UNESCO World Heritage Site in September 2015.
+Question: Is it true that angels built the Angeloktisti church in one night?
+Answer: No, based on the provided context information, there is no information indicating that angels built the Panagia tis Angeloktistis church in a single night. The text provides historical details about the origins and construction of the Byzantine basilica, its destruction during various periods, but it does not mention any specific event where angels were involved in building the church.
+Question: How does Angeloktisti differ from other Byzantine churches in Cyprus?
+Answer: Panagia tis Angeloktistis is a Byzantine church located in the village of Kiti, Cyprus. It was built between the mid-11th and early 12th centuries after Byzantine rule was re-established in Cyprus in 965. Unlike other churches in Cyprus during this period, Panagia tis Angeloktistis was constructed using rubble masonry and served as a burial ground for graves built into the earlier foundations of the church.
+Question: Describe the interior and exterior of the Angeloktisti Church in Kiti.
+Answer: The interior of the Angeloktisti Church in Kiti is a cross-in-square layout with a centralized design. The domed, cross-in-square church features an early basilica apse incorporated into its structure. A small excavation discovered graves built into the earlier foundations, indicating that this basilica had served as a burial ground prior to the construction of the new Middle Byzantine church. The architecture is constructed out of rubble masonry and was influenced by both early Christian basilicas during the 6th or 7th century, with features like elongated cross-in-square layout and an expansion of chapels and churches due to Byzantine rule re-establishment in Cyprus in the late 11th century.
+Question:  Tell me everything about the famous 6th-century mosaic in Panagia Angeloktisti.
+Answer:
+The celebrated 6th-century mosaic of Panagia tis Angeloktistis is one of the most preserved early Christian wall mosaics in Cyprus. It was likely created around the late 6th century and has been exceptionally well-preserved due to its centralized design and dedication to a religious theme.
+
+Key features of this mosaic include:
+1. A cross-in-square layout, with a central apse containing the Virgin Mary holding Christ Child.
+2. An early basilica apse that incorporated parts of the church into its foundations.
+3. The use of peacock feathers in the angels' wings, symbolizing eternal life and earthly domination.
+4. Unique features such as a mosaic border depicting a Fountain of Life with ducks, beribboned parrots, and deer or stags.
+
+The mosaic is notable for being one of the best-preserved early Christian wall mosaics of Cyprus and has been praised by various scholars for its precision and delicate construction techniques.
+
+
+------------------------------------------------------------------------------------------------
+Ollama qwen3:0.6b with mixedbread-ai/mxbai-embed-large-v1
+Question: What can you tell me about Angeloktistisi church?
+Answer: The Angeloktistisi church is a Byzantine-era cypress in Cyprus, built between the 11th and 12th centuries. It was originally a wooden-roofed basilica, with an apse and mosaic surviving after its destruction in the 7th–8th centuries. The church incorporated the apse and mosaic into a new structure, resulting in an elongated cross-in-square layout. Notable elements include the Virgin and Christ Child with angels, peacock-feather angels, and a golden background, all dating to the 6th century. The church also served as a burial site with early Christian graves, and its architecture reflects the era's artistic and religious practices.
+Question:Is it true that angels built the Angeloktisti church in one night?
+Answer: The context does not mention anything about angels building the Angeloktisti church in a single night. It focuses on the historical and architectural details of the church's construction, its location, and its survival after destruction. There is no information provided about the involvement of angels in the building process. Thus, based solely on the given context, the statement cannot be verified.
+Question: How does Angeloktisti differ from other Byzantine churches in Cyprus?
+Answer:
+The Church of Panagia Angeloktisti differs from other Byzantine churches in Cyprus in several ways:
+1. **Survival and Integration**: The original structure was incorporated into the new church, allowing for a seamless design rather than rebuilding from scratch.
+2. **Layout**: The church featured an elongated cross-in-square layout with a centralized design, unlike other Cypriot basilicas that were destroyed in the 7th–8th centuries.
+3. **Construction**: It used rubble masonry, like the original Basilica of Kiti, which was rebuilt to include older remains, emphasizing the integration of past and new structures.
+4. **Mosaic**: The mosaic is one of the best-preserved early Christian wall mosaics of Cyprus, likely created in the 6th century, distinct from other Cypriot churches in the region.
+
+These features highlight its unique role as a surviving and culturally significant Byzantine church.
+Question: Describe the interior and exterior of the Angeloktisti Church in Kiti.
+Answer: 
+The Angeloktisti Church in Kiti, Cyprus, is an early Christian basilica with a distinctive architectural style.
+
+**Interior:**
+- The church features an elongated cross-in-square layout with a centralized design.
+- Decorative elements include the Virgin and Christ Child flanked by Archangels Michael and Gabriel, depicted in the Hodegetria style.
+- A mosaic of Panagia tis Angeloktisti is preserved and dates to the late 6th century, showcasing intricate details like peacock-feather wings and a globe with cross.
+- The interior includes a border with a Fountain of Life depicting ducks, parrots, and deer, symbolizing eternal life.
+
+**Exterior:**
+- Constructed between the mid-11th and early 12th centuries, the church features a wooden-roofed basilica.
+- The structure incorporates remnants of a destroyed basilica, indicating its earlier use as a burial site.
+
+The church’s design reflects Byzantine influences and early Christian symbolism, with a focus on both structural and decorative elements.
+-----------------------------------------------------------------------------------------------------
+OLLAMA google/embedding-gemma-300m with qwen3:0.6b 
+Question:What can you tell me about Angeloktistisi church?
+Answer: The Angeloktistisi church, located in Kiti, Cyprus, was a Byzantine-era structure built between the 11th and 12th centuries. It features wooden roofs, a basilica apse, and a mosaic dating to the 6th century, which was incorporated into the new church. The church was destroyed around 7th–8th centuries, with remnants preserved. It incorporated elements like the apse with angels and a golden background, and the mosaic depicted the Virgin Mary with angels and symbols of eternal life. The church's construction and decorations reflect early Christian practices, with burial sites and architectural styles echoing other Byzantine churches.
+Question: Is it true that angels built the Angeloktisti church in one night?
+Answer: Based on the provided context, there is no information indicating that angels built the Angeloktisti church in a single night. The context highlights the church's construction over centuries, its historical context, and the architectural details, but does not mention any specific time or process involving angels in one night. Therefore, the statement cannot be verified from the given data.
+Question: How does Angeloktisti differ from other Byzantine churches in Cyprus?
+Answer: Angeloktisti differs from other Byzantine churches in Cyprus in several ways:
+1. **Structure**: It was built on the same type of wooden-roofed basilica as other churches of the same period, though its original structure was later incorporated into a new, more centralized church.
+2. **Layout**: The church features an elongated cross-in-square design but with a central layout, which is unique compared to other churches.
+3. **Mosaic**: It is one of the best-preserved early Christian wall mosaics of Cyprus, created in the late 6th century, and shares stylistic similarities with other Byzantine mosaics like those in Lythrankomi.
+4. **Purpose**: It was a burial site with earlier foundations, indicating a unique function compared to other churches, which may not have such historical or burial-related features.
+Question: Describe the interior and exterior of the Angeloktisti Church in Kiti.
+Answer: The Angeloktisti Church in Kiti, located in Cyprus, has an exterior that reflects its historical context. The church was built over the remains of a destroyed basilica, indicating a wooden structure that incorporated the apse, mosaic, and other elements from the original basilica. The exterior features a central, elongated design with a cross-in-square layout, as noted in the context.
+
+For the interior, the mosaic is described as a key feature, with intricate details like peacock feathers, a globe with a cross, and angelic figures, suggesting a detailed and elaborate interior. The apse’s design and the overall layout are noted for their centralized and elongated nature. The context also mentions that the church’s style echoes Byzantine mosaics, emphasizing its architectural and decorative elements.
+
+
+Question: Tell me everything about the famous 6th-century mosaic in Panagia Angeloktisti.
+Answer: 
+The 6th-century mosaic in Panagia Angeloktisti is a key early Christian wall mosaic from Cyprus, likely created in the late 6th century. Here are the details:
+1. **Historical Context**: The mosaic is one of the best preserved early Christian wall mosaics of Cyprus, likely dating to the 6th century. It is noted for its meticulous craftsmanship, with elements like the Virgin and Christ Child (in Hodegetria style) and archangels Michael and Gabriel.
+2. **Style**: The design features a golden background, peacock-feather wings, a globe with a cross, and symbols of eternal life (e.g., ducks, parrots, and deer or stags). It echoes Byzantine iconography, as seen in other sites like Saint Catherine’s Monastery.
+3. **Significance**: The mosaic is associated with the broader development of Christian art in Cyprus, emphasizing the natural world brought into the House of the Lord.
+4. **Architectural Influence**: It shares stylistic elements with other 6th-century mosaics, including the use of the Fountain of Life, which references the 41st and 42nd Psalms.
+5. **References**: The mosaic’s features and style are echoed in other Byzantine artworks, reinforcing its historical and artistic importance.
+
+This mosaic exemplifies the artistic and symbolic depth of early Christian art in Cyprus.
+---------------------------------------------
+OLLAMA google/embedding-gemma-300m with Granite4:350m
+Question: What can you tell me about Angeloktistisi church?
+Answer: The famous 6th-century mosaic at Panagia Aggeloktisti is one of the best preserved early Christian wall mosaics of Cyprus. It was likely created in the late 6th century, and it features a cross-in-square layout with an elongated design. The mosaic is made from rubble masonry, similar to that used for the Pangia Kyra church in Livadia. Notable elements include a Virgin Mary holding Christ Child on her left arm, archangels Michael and Gabriel, golden background, and faces with a precise and delicately crafted style.
+Question:  Is it true that angels built the Angeloktisti church in one night?
+Answer: No, based on the provided context information, there is no mention of angels building the Church of Panagia Aggeloktisti in a single night.
+Question: How does Angeloktisti differ from other Byzantine churches in Cyprus?
+Answer: The Panagia tis Angeloktistis is a unique Byzantine church located in the village of Kiti, Cyprus. Unlike many Cypriot basilicas, it was constructed around the 7th and 8th centuries using wooden roofs and oil lamps rather than wooden walls or floors. It has an elongated cross-in-square layout but with a centralized design.
+Question: Describe the interior and exterior of the Angeloktisti Church in Kiti.
+Answer: The Angeloktisti Church is a Byzantine church located in the village of Kiti, Cyprus. The church's interior features intricate details such as faces flanked by archangels Michael and Gabriel, mosaic walls with Fountain of Life imagery, and a central Virgin Mary holding Christ Child on a stool. The exterior consists of stone masonry and includes notable elements like a cross-in-square layout, which has undergone restoration and modification during the Byzantine period.
+------------------------------------------------------------
+OLLAMA granite 4 with all-MiniLM-L6-v2
+Question: What can you tell me about Angeloktistisi church?
+Answer: Based on the provided context information and the discussion of Panagia tis Angeloktistis, this Byzantine church is located in the village of Kiti, Cyprus. It was built around the 6th century and was most likely constructed to accommodate a wooden-roofed basilica or other buildings with wooden roofs at that time. The church has undergone various transformations since its original construction and includes notable elements such as an elongated cross-in-square layout, a centralized design, and early Christian mosaics like the mosaic of Panagia tis Angeloktisti.
+Question: Is it true that angels built the Angeloktisti church in one night?
+Answer: Based on the provided context information, there is no information suggesting that angels built the Panagia tis Angeloktistis church in a single night. The mention of angels and their involvement in the construction process is more about architectural details and symbolism rather than an event taking place over a short period.
+
+Question:  How does Angeloktisti differ from other Byzantine churches in Cyprus?
+Answer: According to the provided context information, Panagia tis Angeloktistis is a Byzantine church located in the village of Kiti, Cyprus. It was constructed between the mid-11th and early 12th centuries after Byzantine rule was re-established in Cyprus in 965. The church was built over the remains of the destroyed basilica during this time. Unlike other Cypriot basilicas, Panagia tis Angeloktistis is described as being a wooden-roofed basilica that was most likely built in the 5th century and survived destruction by Arab raids around the 7th and 8th centuries.
+Question: Tell me everything about the famous 6th-century mosaic in Panagia Angeloktisti.
+Answer: The famous 6th-century mosaic in Panagia Aggeloktisti is one of the best preserved early Christian wall mosaics of Cyprus and was likely created in the late 6th century. The period of Justin II saw the expanded production of wall and floor mosaics, Cyprus was no exception. In Kiti, the Virgin Mary holds the Christ Child, standing on a stool, holding an earthly globe with a cross at the apex, which symbolizes the offering of earthly domination to Christ and the Virgin. On her right is the archangel Michael and on her left is the archangel Gabriel, while all are situated against a golden background.
+
+
+-----------------------------------------------------------
+OLLAMA qwen 0.6b with all-MiniLM-L6-v2
+Question: What can you tell me about Angeloktistisi church?
+Answer: The Angeloktistisi church is a Byzantine-era Christian church located in Kiti, Cyprus. It was constructed between the mid-11th and early 12th centuries, reflecting the re-establishment of Byzantine rule in Cyprus. The original structure was a wooden-roofed basilica, with later expansions including a domed, cross-in-square church. Notable elements include the incorporation of older basilica remains, the use of early Christian mosaics (like the Virgin and Christ Child with archangels), and architectural features such as the golden background, peacock-feather angels, and Fountain of Life with ducks, parrots, and deer. Archaeological findings suggest it was a burial site with earlier foundations, indicating its historical and cultural significance.
+Question: Is it true that angels built the Angeloktisti church in one night?
+Answer:  The information provided does not address whether angels built the Angeloktisti church in one night. The context discusses the historical context of the church's construction and destruction, but there is no specific mention or claim about the construction time frame or the involvement of angels in the process. Therefore, based on the given context, the statement cannot be confirmed as true.
+Question: How does Angeloktisti differ from other Byzantine churches in Cyprus?
+Answer:  Angeloktisti differs from other Byzantine churches in Cyprus in several key ways:
+1. **Time of Construction**: It was built between the mid-11th and early 12th centuries, after the re-establishment of Byzantine rule in Cyprus in 965. Other churches in the region were constructed earlier, such as in the 5th century.
+2. **Architectural Style**: The original structure was a wooden-roofed basilica, while other basilicas in Cyprus from this period also used wooden roofs. This distinction highlights Angeloktisti as a unique example of early Christian architecture.
+3. **Survival and Incorporation**: The apse and mosaic survived the destruction and were incorporated into the church that was later built, unlike other churches that were destroyed in the 7th and 8th centuries.
+4. **Architectural Techniques**: The church was constructed from rubble masonry, a technique similar to the original basilica, which may indicate a different approach to construction compared to other churches in the region.
+
+These differences reflect Angeloktisti’s unique role as a preserved Byzantine church in Cyprus.
+Question: Tell me everything about the famous 6th-century mosaic in Panagia Angeloktisti.
+Answer: The 6th-century mosaic in Panagia Angeloktisti, part of the early Christian wall mosaics in Cyprus, features the Virgin Mary holding Christ in Hodegetria style, with angels depicted as peacock-feather wings and a scepter/globe motif. It includes a border with a Fountain of Life and elements like ducks, beribboned parrots, and deer or stags. The mosaic's technique differs from other sites but echoes in other Byzantine iconography, suggesting its significance in the 6th-century artistic movement. The data confirms its preservation and connection to the region's historical context of Christian expansion.
