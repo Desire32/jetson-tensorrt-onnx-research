@@ -3,8 +3,9 @@
 
 from typing import Tuple
 
-from config import Config
 from nano_llm import ChatHistory, NanoLLM
+
+from config import Config
 
 
 def load_nano_llm(
@@ -25,7 +26,7 @@ def load_nano_llm(
             model=model_path,
             api=api,
             api_token=config.HF_TOKEN,
-            quantization="q4f16_1",
+            quantization="q4f16_ft",
         )
     except Exception as e:
         raise RuntimeError(f"Failed to load NanoLLM model: {e}")

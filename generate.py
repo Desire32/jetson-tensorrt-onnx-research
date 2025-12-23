@@ -1,5 +1,10 @@
 # generate.py
 
+
+"""
+to change
+"""
+
 import datetime
 import time
 
@@ -9,7 +14,7 @@ from parsers import args
 from utils import SystemSampler, build_context, build_prompt, clean_text, log_to_csv
 
 
-def generate_with_metrics(model, prompt: str, max_new_tokens: int):
+def generate_with_metrics(model, prompt: str):
     """
     Generation with latency, tokens, CPU/GPU.
     """
@@ -22,8 +27,8 @@ def generate_with_metrics(model, prompt: str, max_new_tokens: int):
         prompt,
         streaming=True,
         kv_cache=None,
-        stop_tokens=None,
-        max_new_tokens=max_new_tokens,
+        stop_tokens=[2],  # hard code
+        max_new_tokens=Config.MAX_NEW_TOKENS,
     ):
         output_text += tok
 
@@ -43,7 +48,7 @@ def generate_with_metrics(model, prompt: str, max_new_tokens: int):
     }
 
 
-def generate_chat(model, chat_history, max_new_tokens: int):
+def generate_chat(model, chat_history):
     """
     Interactive chat with RAG and metrics integrated
     """
@@ -56,33 +61,30 @@ def generate_chat(model, chat_history, max_new_tokens: int):
             chat_history.append("user", prompt)
 
             t_retrieval_start = time.time()
-            nodes = load_embed(args.embed, "gpu", "data", 3).retrieve(prompt)
+            nodes = load_embed(args.embed, "cpu", "data", 3).retrieve(prompt)
             context = build_context(nodes, Config.MAX_CONTEXT_CHARS)
             retrieval_latency_ms = (time.time() - t_retrieval_start) * 1000.0
 
             dlg = build_prompt(context, prompt, Config.SYSTEM_PROMPT)
-            gen = generate_with_metrics(model, dlg, max_new_tokens=max_new_tokens)
+            gen = generate_with_metrics(model, dlg)
 
+            from termcolor import cprint  # change to stream
+
+            cprint(gen["text"], "blue")
             print()
 
             chat_history.append("bot", gen["text"])
 
             end_to_end_ms = retrieval_latency_ms + gen["generation_latency_ms"]
             log_row = {
-                "timestamp": "",
+                "timestamp": time.time(),
                 "question": prompt,
                 "answer": gen["text"],
-                "top_k": Config.TOP_K,
-                "max_context_chars": Config.MAX_CONTEXT_CHARS,
                 "retrieval_latency_ms": f"{retrieval_latency_ms:.2f}",
                 "generation_latency_ms": f"{gen['generation_latency_ms']:.2f}",
                 "end_to_end_ms": f"{end_to_end_ms:.2f}",
                 "tokens_generated": gen["tokens_generated"],
                 "tokens_per_sec": f"{gen['tokens_per_sec']:.2f}",
-                "cpu_avg": gen["util"]["cpu_avg"],
-                "cpu_max": gen["util"]["cpu_max"],
-                "gpu_avg": gen["util"]["gpu_avg"],
-                "gpu_max": gen["util"]["gpu_max"],
             }
             log_to_csv(log_row, csv_path=Config.LOG_FILE)
 
