@@ -1,6 +1,7 @@
 # models.py
 
 
+import time
 from typing import Tuple
 
 from nano_llm import ChatHistory, NanoLLM
@@ -47,8 +48,12 @@ def load_embed(model: str, device: str, directory: str, top_k: int):
     Settings.node_parser = SentenceSplitter(
         chunk_size=Config.CHUNK_SIZE, chunk_overlap=Config.CHUNK_OVERLAP
     )
-
+    r0 = time.time()
     documents = SimpleDirectoryReader(directory).load_data()
     index = VectorStoreIndex.from_documents(documents, embed_model=embed_model)
     retriever = index.as_retriever(similarity_top_k=top_k)
+    r1 = time.time()
+    print(f"Retrieval start: {r0}")
+    print(f"Retrieval end: {r1}")
+    print(f"Retrieval latency: {time.time() - r0 * 1000.0}")
     return retriever
