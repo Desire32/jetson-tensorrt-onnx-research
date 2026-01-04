@@ -27,7 +27,6 @@ def load_nano_llm(
             quantization="q4f16_ft",
         )
     except Exception as e:
-        # логируем ошибку, если run уже есть
         wandb.log({"model_load_error": str(e)})
         raise RuntimeError(f"Failed to load NanoLLM model: {e}")
 
@@ -77,9 +76,7 @@ def load_embed(model: str, device: str, directory: str, top_k: int):
     num_documents = len(documents)
 
     index_build_t0 = time.time()
-    index = VectorStoreIndex.from_documents(
-        documents, embed_model=embed_model
-    )
+    index = VectorStoreIndex.from_documents(documents, embed_model=embed_model)
     index_build_s = time.time() - index_build_t0
 
     retriever = index.as_retriever(similarity_top_k=top_k)

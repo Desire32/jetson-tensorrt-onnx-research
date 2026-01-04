@@ -10,6 +10,7 @@ from termcolor import cprint
 
 from config import Config
 from models import load_embed, load_nano_llm
+from parsers import args
 from utils import log_system_metrics
 
 
@@ -18,21 +19,20 @@ def main():
 
     wandb.init(
         project="jetson-llm-bench",
-        name=f"tinyllama-{datetime.now().strftime('%Y%m%d-%H%M%S')}",
         config={
-            "model": config.MODEL_SHEARED_LLAMA,
-            "embed_model": config.MODEL_EMBED,
-            "max_new_tokens": config.MAX_NEW_TOKENS,
-            "device": "cpu",
+            "model": args.model,
+            "embed_model": args.embed,
+            "max_new_tokens": args.max_new_tokens,
         },
+        name=f"{args.model}_Embed{args.embed}_MAXTOKENS{args.max_new_tokens}_{datetime.now().strftime('%Y%m%d-%H%M%S')}",
     )
+
+    # for memory tracking
     thread = threading.Thread(target=log_system_metrics, daemon=True)
     thread.start()
 
-    model, chat_history = load_nano_llm(
-        config, config.MODEL_SHEARED_LLAMA, config.API
-    )
-    retriever = load_embed(config.MODEL_EMBED, "cpu", "data", 3)
+    model, chat_history = load_nano_llm(config, args.model, config.API)
+    retriever = load_embed(args.embed, "cpu", "data", 3)
 
     step = 0
 
@@ -44,9 +44,7 @@ def main():
         nodes = retriever.retrieve(prompt)
         context = "\n\n".join([node.text for node in nodes])
 
-        chat_history.append(
-            "user", f"Context: {context}\n\nQuestion: {prompt}"
-        )
+        chat_history.append("user", f"Context: {context}\n\nQuestion: {prompt}")
         embedding, _ = chat_history.embed_chat()
 
         text = ""
@@ -55,7 +53,7 @@ def main():
             streaming=True,
             kv_cache=chat_history.kv_cache,
             stop_tokens=chat_history.template.stop,
-            max_new_tokens=config.MAX_NEW_TOKENS,
+            max_new_tokens=args.max_new_tokens,
         )
 
         for token in reply:
@@ -74,9 +72,7 @@ def main():
         t1 = time.time()
         latency_s = t1 - t0
 
-        tokens_per_second = (
-            tokens_generated / latency_s if latency_s > 0 else 0.0
-        )
+        tokens_per_second = tokens_generated / latency_s if latency_s > 0 else 0.0
 
         wandb.log(
             {
@@ -89,6 +85,7 @@ def main():
         )
 
         step += 1
+
 
 if __name__ == "__main__":
     main()
