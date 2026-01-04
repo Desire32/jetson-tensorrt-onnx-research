@@ -25,7 +25,6 @@ def load_nano_llm(
             api=args.api,
             api_token=config.HF_TOKEN,
             quantization=args.quantization,
-            use_safetensors=True,
         )
     except Exception as e:
         wandb.log({"model_load_error": str(e)})

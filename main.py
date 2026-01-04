@@ -5,9 +5,9 @@ import threading
 import time
 from datetime import datetime
 
-import wandb
 from termcolor import cprint
 
+import wandb
 from config import Config
 from models import load_embed, load_nano_llm
 from parsers import args
@@ -57,11 +57,13 @@ def main():
     retriever = load_embed(args.embed, "cpu", "data", config.TOP_K)
 
     step = 0
-
     while True:
         t0 = time.time()
         print(">> ", end="", flush=True)
-        prompt = input().strip()
+        if args.test_mode:
+            prompt = iter(config.TEST_PROMPTS)
+        else:
+            prompt = input().strip()
         print(f"[USER] {prompt}")
 
         nodes = retriever.retrieve(prompt)

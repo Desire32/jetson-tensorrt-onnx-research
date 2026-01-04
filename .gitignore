@@ -1,3 +1,5 @@
 venv
 *.onnx
 *.engine
+wandb
+sweep.yaml

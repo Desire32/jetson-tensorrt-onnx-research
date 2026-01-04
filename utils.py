@@ -1,24 +1,9 @@
 # utils.py
 
-import csv
-import os
+
 import time
 
 import wandb
-
-
-def clean_text(s: str) -> str:
-    s = (s or "").replace("</s>", "").replace("\x00", "").strip()
-    return s.replace("{", "{{").replace("}", "}}")
-
-
-def build_prompt(context: str, question: str, system_prompt: str) -> str:
-    return clean_text(
-        f"SYSTEM:\n{system_prompt}\n\n"
-        f"CONTEXT:\n{context if context else '(none retrieved)'}\n\n"
-        f"USER QUESTION:\n{question}\n\n"
-        f"ASSISTANT ANSWER:"
-    )
 
 
 def log_system_metrics(interval=5):
