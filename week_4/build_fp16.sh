@@ -7,21 +7,22 @@
 # Fail on first error
 set -e
 
-# Paths
-ONNX_MODEL="cypriotbert.onnx"
-ENGINE_FILE="cypriotbert_int8.engine"
+MODEL_NAME="SmolLM2"
+QUANT_TYPE="fp16"
 
-# Check for ONNX file
+
+ONNX_MODEL=$'{MODEL_NAME}.onnx'
+ENGINE_FILE=$'{MODEL_NAME}_{QUANT_TYPE}.engine'
+
 if [ ! -f "$ONNX_MODEL" ]; then
     echo "❌ ONNX model not found: $ONNX_MODEL"
     exit 1
 fi
 
-# Run TensorRT conversion
 echo "Building TensorRT engine..."
-/usr/src/tensorrt/bin/trtexec \
+trtexec \
     --onnx="$ONNX_MODEL" \
     --saveEngine="$ENGINE_FILE" \
-    --int8
+    --fp16
 
 echo "Engine saved to: $ENGINE_FILE"
