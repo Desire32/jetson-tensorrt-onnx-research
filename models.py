@@ -7,6 +7,7 @@ import wandb
 from nano_llm import ChatHistory, NanoLLM
 
 from config import Config
+from parsers import args
 
 
 def load_nano_llm(
@@ -18,27 +19,28 @@ def load_nano_llm(
     """
 
     t0 = time.time()
-
     try:
         model = NanoLLM.from_pretrained(
             model=model_path,
-            api=api,
+            api=args.api,
             api_token=config.HF_TOKEN,
-            quantization="q4f16_ft",
+            quantization=args.quantization,
+            use_safetensors=True,
         )
     except Exception as e:
         wandb.log({"model_load_error": str(e)})
         raise RuntimeError(f"Failed to load NanoLLM model: {e}")
 
     chat_history = ChatHistory(model, system_prompt=config.SYSTEM_PROMPT)
-
+    num_params = sum(p.numel() for p in model.parameters())
     load_time_s = time.time() - t0
     wandb.log(
         {
             "model/load_time_s": load_time_s,
             "model/path": model_path,
-            "model/api": api,
-            "model/quantization": "q4f16_ft",
+            "model/api": args.api,
+            "model/num_params": num_params / 1e6,
+            "model/quantization": args.quantization,
             "model/system_prompt_length": len(config.SYSTEM_PROMPT),
         }
     )
@@ -88,7 +90,7 @@ def load_embed(model: str, device: str, directory: str, top_k: int):
             "embed/doc_load_time_s": doc_load_s,
             "embed/index_build_time_s": index_build_s,
             "embed/total_init_time_s": total_init_s,
-            "embed/model": model,
+            "embed/model": args.model,
             "embed/device": device,
             "embed/top_k": top_k,
             "embed/chunk_size": Config.CHUNK_SIZE,

@@ -13,18 +13,40 @@ from models import load_embed, load_nano_llm
 from parsers import args
 from utils import log_system_metrics
 
+if args.api == "hf":
+    os.environ["CUDA_VISIBLE_DEVICES"] = ""  # really does help
+
+
+"""
+to clean memory before launch:
+sudo sync echo 3 | sudo tee /proc/sys/vm/drop_caches
+"""
+
+"""
+NOTE:
+    the reason why 'hf' mode works so slowly, is because we turn off gpu help completely
+"""
+
+"""
+hf mode for shearedllama:
+
+    ValueError: Due to a serious vulnerability issue in `torch.load`, even with `weights_only=True`, we now require users to upgrade torch to at least v2.6 in order to use the function. This version restriction does not apply when loading files with safetensors.
+    See the vulnerability report here https://nvd.nist.gov/vuln/detail/CVE-2025-32434
+"""
+
 
 def main():
     config = Config()
 
     wandb.init(
-        project="jetson-llm-bench",
+        project="final-core",
         config={
             "model": args.model,
             "embed_model": args.embed,
             "max_new_tokens": args.max_new_tokens,
+            "quantization": args.quantization,
         },
-        name=f"{args.model}_Embed{args.embed}_MAXTOKENS{args.max_new_tokens}_{datetime.now().strftime('%Y%m%d-%H%M%S')}",
+        name=f"{args.model}--{args.embed}quantization-{args.api}-{datetime.now().strftime('%Y%m%d-%H%M%S')}",
     )
 
     # for memory tracking
@@ -32,7 +54,7 @@ def main():
     thread.start()
 
     model, chat_history = load_nano_llm(config, args.model, config.API)
-    retriever = load_embed(args.embed, "cpu", "data", 3)
+    retriever = load_embed(args.embed, "cpu", "data", config.TOP_K)
 
     step = 0
 
@@ -40,6 +62,7 @@ def main():
         t0 = time.time()
         print(">> ", end="", flush=True)
         prompt = input().strip()
+        print(f"[USER] {prompt}")
 
         nodes = retriever.retrieve(prompt)
         context = "\n\n".join([node.text for node in nodes])
@@ -83,7 +106,6 @@ def main():
             },
             step=step,
         )
-
         step += 1
 
 

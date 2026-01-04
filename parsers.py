@@ -10,7 +10,7 @@ parser.add_argument(
     type=str,
     choices=[
         "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
-        "ShearedLlama/ShearedLlama-1.1B-Chat-v1.0",
+        "princeton-nlp/Sheared-LLaMA-1.3B",
     ],
     default="TinyLlama/TinyLlama-1.1B-Chat-v1.0",
     help="path to the model",  # HuggingFace repo/model name, or path to HF model checkpoint
@@ -20,7 +20,7 @@ parser.add_argument(
 parser.add_argument(
     "--quantization",
     type=str,
-    choices=["q4f16_ft", "q4f16", "fp16"],
+    choices=["q4f16_ft", "q4f16", "fp16", "none"],
     default="q4f16_ft",
     help="Choose quantization type",
 )
