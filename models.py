@@ -1,9 +1,9 @@
 # models.py
-
-
+# ------------------------------------------
 import time
 from typing import Tuple
 
+import wandb
 from nano_llm import ChatHistory, NanoLLM
 
 from config import Config
@@ -13,15 +13,12 @@ def load_nano_llm(
     config: Config, model_path: str, api: str
 ) -> Tuple[NanoLLM, ChatHistory]:
     """
-
-    Args:
-        config
-        model_path
-        api:  API (mlc, awq, hf)
-
-    Returns:
-        tuple: (model, chat_history)
+    Load NanoLLM model and initialize chat history.
+    Logs model loading metrics to the active wandb run.
     """
+
+    t0 = time.time()
+
     try:
         model = NanoLLM.from_pretrained(
             model=model_path,
@@ -30,30 +27,77 @@ def load_nano_llm(
             quantization="q4f16_ft",
         )
     except Exception as e:
+        # логируем ошибку, если run уже есть
+        wandb.log({"model_load_error": str(e)})
         raise RuntimeError(f"Failed to load NanoLLM model: {e}")
 
     chat_history = ChatHistory(model, system_prompt=config.SYSTEM_PROMPT)
+
+    load_time_s = time.time() - t0
+    wandb.log(
+        {
+            "model/load_time_s": load_time_s,
+            "model/path": model_path,
+            "model/api": api,
+            "model/quantization": "q4f16_ft",
+            "model/system_prompt_length": len(config.SYSTEM_PROMPT),
+        }
+    )
 
     return model, chat_history
 
 
 def load_embed(model: str, device: str, directory: str, top_k: int):
+    """
+    Build embedding index and retriever.
+    Logs embedding + indexing metrics.
+    """
+
     from llama_index.core import Settings, SimpleDirectoryReader, VectorStoreIndex
     from llama_index.core.node_parser import SentenceSplitter
     from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 
+    t0 = time.time()
+
+    # -------- embedding model init
+    embed_init_t0 = time.time()
     embed_model = HuggingFaceEmbedding(model_name=model, device=device)
+    embed_init_s = time.time() - embed_init_t0
 
     Settings.embed_model = embed_model
     Settings.node_parser = SentenceSplitter(
-        chunk_size=Config.CHUNK_SIZE, chunk_overlap=Config.CHUNK_OVERLAP
+        chunk_size=Config.CHUNK_SIZE,
+        chunk_overlap=Config.CHUNK_OVERLAP,
     )
-    r0 = time.time()
+
+    doc_load_t0 = time.time()
     documents = SimpleDirectoryReader(directory).load_data()
-    index = VectorStoreIndex.from_documents(documents, embed_model=embed_model)
+    doc_load_s = time.time() - doc_load_t0
+
+    num_documents = len(documents)
+
+    index_build_t0 = time.time()
+    index = VectorStoreIndex.from_documents(
+        documents, embed_model=embed_model
+    )
+    index_build_s = time.time() - index_build_t0
+
     retriever = index.as_retriever(similarity_top_k=top_k)
-    r1 = time.time()
-    print(f"Retrieval start: {r0}")
-    print(f"Retrieval end: {r1}")
-    print(f"Retrieval latency: {time.time() - r0 * 1000.0}")
+    total_init_s = time.time() - t0
+
+    wandb.log(
+        {
+            "embed/init_time_s": embed_init_s,
+            "embed/doc_load_time_s": doc_load_s,
+            "embed/index_build_time_s": index_build_s,
+            "embed/total_init_time_s": total_init_s,
+            "embed/model": model,
+            "embed/device": device,
+            "embed/top_k": top_k,
+            "embed/chunk_size": Config.CHUNK_SIZE,
+            "embed/chunk_overlap": Config.CHUNK_OVERLAP,
+            "embed/num_documents": num_documents,
+        }
+    )
+
     return retriever
