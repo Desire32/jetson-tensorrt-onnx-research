@@ -1,3 +1,14 @@
+## How to use
+- hardware: jetson orin nano
+- docker: jetson-containers (nanollm)
+ 1. `git clone https://github.com/Desire32/jetson-tensorrt-onnx-research.git`
+- Example commands:
+  - `python3 main.py (loads tinyllama with mlc + INT3 from config by default)`
+  - `python3 main.py --api hf (loads tinyllama from config without quantization)`
+  - `python3 main.py --model "X" (choose your own llm model to load)`
+  - `python3 main.py --embed "Y" (choose your own embed model to load)`
+  - `python3 main.py --model "X" --quantization "q8f16_ft" (load your llm model with specific quantization type)`
+
 ### Commands
 
 - `--model` — HuggingFace repo/model name, or path to HF model checkpoint
@@ -5,7 +16,7 @@
   - `TinyLlama/TinyLlama-1.1B-Chat-v1.0`
   - `princeton-nlp/Sheared-LLaMA-1.3B`
 
-- `--quantization` — type of quantization  
+- `--quantization` — type of quantization (WORKS ONLY FOR MLC)
   - `q0f32`, `q0f16` Plain model
   - `q3f16_0`, `q3f16_1` INT3
   - `q4f16_0`, `q4f16_1`, `q4f16_ft` INT4
