@@ -1,14 +1,11 @@
-# models.py
+#models.py
 # ------------------------------------------
 import time
 from typing import Tuple
-
 import wandb
 from nano_llm import ChatHistory, NanoLLM
-
 from config import Config
 from parsers import args
-
 
 def load_nano_llm(
     config: Config, model_path: str, api: str
@@ -17,7 +14,6 @@ def load_nano_llm(
     Load NanoLLM model and initialize chat history.
     Logs model loading metrics to the active wandb run.
     """
-
     t0 = time.time()
     try:
         model = NanoLLM.from_pretrained(
@@ -25,20 +21,24 @@ def load_nano_llm(
             api=args.api,
             api_token=config.HF_TOKEN,
             quantization=args.quantization,
+           # max_context_len=args.max_context_len #desparate attempt by LN
+
         )
     except Exception as e:
         wandb.log({"model_load_error": str(e)})
         raise RuntimeError(f"Failed to load NanoLLM model: {e}")
 
-    chat_history = ChatHistory(model, system_prompt=config.SYSTEM_PROMPT)
-    num_params = sum(p.numel() for p in model.parameters())
+   # chat_history = ChatHistory(model, system_prompt=config.SYSTEM_PROMPT)
+    chat_history = ChatHistory(model, system_prompt="")
+
+# num_params = sum(p.numel() for p in model.parameters())
     load_time_s = time.time() - t0
     wandb.log(
         {
             "model/load_time_s": load_time_s,
             "model/path": model_path,
             "model/api": args.api,
-            "model/num_params": num_params / 1e6,
+           # "model/num_params": num_params / 1e6,
             "model/quantization": args.quantization,
             "model/system_prompt_length": len(config.SYSTEM_PROMPT),
         }
@@ -46,13 +46,11 @@ def load_nano_llm(
 
     return model, chat_history
 
-
 def load_embed(model: str, device: str, directory: str, top_k: int):
     """
     Build embedding index and retriever.
     Logs embedding + indexing metrics.
     """
-
     from llama_index.core import Settings, SimpleDirectoryReader, VectorStoreIndex
     from llama_index.core.node_parser import SentenceSplitter
     from llama_index.embeddings.huggingface import HuggingFaceEmbedding
@@ -69,6 +67,8 @@ def load_embed(model: str, device: str, directory: str, top_k: int):
         chunk_size=Config.CHUNK_SIZE,
         chunk_overlap=Config.CHUNK_OVERLAP,
     )
+
+
 
     doc_load_t0 = time.time()
     documents = SimpleDirectoryReader(directory).load_data()
@@ -96,6 +96,9 @@ def load_embed(model: str, device: str, directory: str, top_k: int):
             "embed/chunk_overlap": Config.CHUNK_OVERLAP,
             "embed/num_documents": num_documents,
         }
+
     )
+
+
 
     return retriever

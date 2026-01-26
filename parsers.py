@@ -1,9 +1,7 @@
 # parsers.py
 
 import argparse
-
 from config import Config
-
 # [https://github.com/dusty-nv/NanoLLM/blob/main/nano_llm/chat/example.py]
 parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
@@ -48,13 +46,14 @@ parser.add_argument(
     default=256,
     help="Maximum response length for each bot reply",
 )
+
 # embed model
 parser.add_argument(
     "--embed",
     type=str,
     choices=[
-        "sentence-transformers/all-MiniLM-L12-v2",
         "sentence-transformers/all-MiniLM-L6-v2",
+        "mixedbread-ai/mxbai-edge-colbert-v0-17m",
     ],
     default="sentence-transformers/all-MiniLM-L6-v2",
     help="Choose embedding model",
@@ -69,12 +68,9 @@ parser.add_argument(
     help="API format for model",
 )
 
-# additionals
-parser.add_argument(
-    "--test-mode", action="store_true", help="Run with predefined prompts"
-)
 parser.add_argument("--chunk_size", type=int, default=Config.CHUNK_SIZE)
 parser.add_argument("--chunk_overlap", type=int, default=Config.CHUNK_OVERLAP)
 parser.add_argument("--top_k", type=int, default=Config.TOP_K)
+#parser.add_argument("--max_context_len", type=int, default=256) #added by LN - desparate attempt
 
 args = parser.parse_args()
